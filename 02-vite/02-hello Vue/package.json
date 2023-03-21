@@ -1,21 +1,21 @@
 {
-  "name": "01-hello-vue",
+  "name": "02-hello-vue",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite --open",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev":"vite --open",
+    "build":"vite build",
+    "preview":"vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "vue": "^3.2.47"
-  },
   "devDependencies": {
     "vite": "^4.2.1"
+  },
+  "dependencies": {
+    "vue": "^3.2.47"
   }
 }
