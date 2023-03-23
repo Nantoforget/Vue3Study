@@ -1,4 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 
-createApp(App).mount("#app");
+const app = createApp(App);
+//必须在挂载前声明
+app.config.globalProperties.alert = alert.bind(this);
+app.mount("#app");
