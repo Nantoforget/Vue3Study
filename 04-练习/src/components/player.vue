@@ -1,54 +1,27 @@
 <template>
-    <div class="item1">
+    <div class="item">
         <div class="img">
             <div class="imgP">
-                <div class="num">1</div>
-                <img src="/images/messi.png">
+                <div class="num">{{ props.item.rate }}</div>
+                <img :src=props.item.img>
             </div>
         </div>
         <div class="info">
-            <div class="name">梅西</div>
+            <div class="name">{{ props.item.name }}</div>
             <div class="heat">
-                <div class="heatM">433760热度</div>
-            </div>
-        </div>
-    </div>
-    <div class="item1">
-        <div class="img">
-            <div class="imgP">
-                <div class="num">2</div>
-                <img src="/images/ronaldo.png">
-            </div>
-        </div>
-        <div class="info">
-            <div class="name">C罗</div>
-            <div class="heat">
-                <div class="heatC">433760热度</div>
-            </div>
-        </div>
-    </div>
-    <div class="item1">
-        <div class="img">
-            <div class="imgP">
-                <div class="num">3</div>
-                <img src="/images/neymar.png">
-            </div>
-        </div>
-        <div class="info">
-            <div class="name">内马尔</div>
-            <div class="heat">
-                <div class="heatN">433760热度</div>
+                <div class="heatM">{{ props.item.hot }}热度</div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-
+const props = defineProps(["item"]);
+console.log(props);
 </script>
 
 <style scoped>
-.item1 {
+.item {
     margin: 15px 20px;
     display: flex;
 }

@@ -1,54 +1,26 @@
 <template>
-    <div class="item1">
+    <div class="item">
         <div class="img">
             <div class="imgP">
-                <div class="num">1</div>
-                <img src="/images/法国.jpg">
+                <div class="num">{{ props.item.rate }}</div>
+                <img :src="props.item.img">
             </div>
         </div>
         <div class="info">
-            <div class="name">法国</div>
+            <div class="name">{{ props.item.name }}</div>
             <div class="heat">
-                <div class="heatP">433760热度</div>
-            </div>
-        </div>
-    </div>
-    <div class="item1">
-        <div class="img">
-            <div class="imgP">
-                <div class="num">2</div>
-                <img src="/images/荷兰.jpg">
-            </div>
-        </div>
-        <div class="info">
-            <div class="name">荷兰</div>
-            <div class="heat">
-                <div class="heatP">433760热度</div>
-            </div>
-        </div>
-    </div>
-    <div class="item1">
-        <div class="img">
-            <div class="imgP">
-                <div class="num">3</div>
-                <img src="/images/巴西.jpg">
-            </div>
-        </div>
-        <div class="info">
-            <div class="name">巴西</div>
-            <div class="heat">
-                <div class="heatP">433760热度</div>
+                <div class="heatP">{{ props.item.hot }}热度</div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-
+const props = defineProps(["item"])
 </script>
 
 <style scoped>
-.item1 {
+.item {
     margin: 15px 20px;
     display: flex;
 }
@@ -109,5 +81,6 @@
     border-radius: 50px;
     width: 100%;
     background-image: linear-gradient(90deg, rgb(186, 3, 53) 50%, rgb(68, 34, 12));
+    white-space: nowrap;
 }
 </style>
