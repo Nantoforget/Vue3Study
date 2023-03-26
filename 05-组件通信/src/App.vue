@@ -1,24 +1,26 @@
 <template>
-    <h1>App组件</h1>
-    <!-- 直接写在组件中的内容是默认插槽的内容，只会在默认插槽中出现 -->
+    <h1>{{ count }}</h1>
     <!-- 
-        等价于
-        <slot-demo>
-            <template #default>哈哈哈哈</template>
-        </slot-demo>
+        绑定事件的两种方式
+            1.内联事件处理器(可以用$event作为参数来传递事件对象)
+                -事件触发时，直接执行js语句
+            2.方法事件处理器(vue帮我们传了事件对象event)
+                -事件触发时，vue会对时间的函数进行调用
+            vue如何区分两种处理器：
+                检查事件的值是否合法的js标识符或属性访问路径，
+                    是，则表示它是方法事件处理器
+                    否，表示它是内联事件处理器
     -->
-    <slot-demo>
-        哈哈哈哈
-        <template v-slot:aa>AA</template>
-        <template #bb="slotProps">
-            <A :name="slotProps.gender"></A>
-        </template>
-    </slot-demo>
+    <button @click="count++">Click Me</button>
+    <button @click="change($event)">Click Me</button>
 </template>
 
 <script setup>
-import SlotDemo from "./components/slotDemo.vue"
-import A from "./components/A.vue"
+import { ref } from "vue"
+let count = ref(0)
+const change = (event) => {
+    console.log(event);
+}
 </script>
 
 <style scoped></style>
