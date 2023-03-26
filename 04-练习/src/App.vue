@@ -8,23 +8,21 @@
         </header>
         <!-- 内容 -->
         <div class="main">
-            <div v-if="current === 0">
-                <player :item="players[0]"></player>
-                <player :item="players[1]"></player>
-                <player :item="players[2]"></player>
+            <div class="p" v-show="current === 0" v-for="item in players" :key="item.index">
+                <photo :img="item.img" :rate="item.rate"></photo>
+                <hot-bar :name="item.name" :hot="item.hot" :max-hot="playerMaxHot"></hot-bar>
             </div>
-            <div v-else>
-                <team :item="teams[0]"></team>
-                <team :item="teams[1]"></team>
-                <team :item="teams[2]"></team>
+            <div class="t" v-show="current === 1" v-for="item in teams" :key="item.index">
+                <photo :img="item.img" :rate="item.rate"></photo>
+                <hot-bar :name="item.name" :hot="item.hot" :max-hot="teamMaxHot"></hot-bar>
             </div>
         </div>
     </div>
 </template>
 <script setup>
 import { ref, reactive } from "vue";
-import player from "./components/player.vue";
-import team from "./components/team.vue";
+import photo from "./components/player/Photo.vue";
+import hotBar from "./components/player/HotBar.vue";
 /* 
     使用props
         -现在子组件中定义props(defineProps())
@@ -40,35 +38,37 @@ const players = reactive([
         name: "C罗",
         img: "/images/ronaldo.png",
         rate: 2,
-        hot: 433760,
+        hot: 201536,
     },
     {
         name: "内马尔",
         img: "/images/neymar.png",
         rate: 3,
-        hot: 433760,
+        hot: 195624,
     }
 ]);
+const playerMaxHot = players[0].hot
 const teams = reactive([
     {
         name: "法国",
         img: "/images/法国.jpg",
         rate: 1,
-        hot: 433760,
+        hot: 533760,
     },
     {
         name: "巴西",
         img: "/images/巴西.jpg",
         rate: 2,
-        hot: 433760,
+        hot: 333760,
     },
     {
         name: "荷兰",
         img: "/images/荷兰.jpg",
         rate: 3,
-        hot: 433760,
+        hot: 215642,
     }
 ])
+const teamMaxHot = teams[0].hot
 let current = ref(0)
 </script>
 <style scoped>
@@ -106,5 +106,15 @@ let current = ref(0)
 .header .active {
     background-color: red;
     color: #fff;
+}
+
+.main .p {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main .t {
+    display: flex;
+    flex-wrap: wrap;
 }
 </style>
