@@ -1,42 +1,20 @@
 <template>
-    <div class="box1" @click.stop="handler('box1')">
-        <div class="box2" @click.stop="handler('box2')">
-            <div class="box3" @click.stop="handler('box3')"></div>
-        </div>
-    </div>
+    <h1>属性的透传</h1>
+    <h2 class="box1">我是h2</h2>
+    <C class="box2" style="color:red"></C>
+    <!-- <h3 class="box2">我是组件C</h3> -->
+    <!-- 
+        属性透传:
+            -在组件上设置属性，会自动传递给组件的根元素
+            -这样一来可以方便我们在父组件中为子组件来设置属性
+            -透传会发生在没有被声明为props和emit的属性上
+            -自动的穿透只是用单根组件
+    -->
 </template>
 
 <script setup>
-/* 
-    时间修饰符：
-        .stop停止时间的传播
-        .capture在捕获阶段触发事件
-        .prevent取消默认行为
-        .self只有事件由自身触发时有效
-        .once绑定一次性的事件
-        .passive主要提升滚动事件的性能
- */
-const handler = (box) => {
-    alert(box);
-}
+import C from './components/C.vue';
+
 </script>
 
-<style scoped>
-.box1 {
-    width: 300px;
-    height: 300px;
-    background-color: blueviolet;
-}
-
-.box2 {
-    width: 200px;
-    height: 200px;
-    background-color: blue;
-}
-
-.box3 {
-    width: 100px;
-    height: 100px;
-    background-color: aqua;
-}
-</style>
+<style scoped></style>
