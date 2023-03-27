@@ -1,6 +1,8 @@
 <template>
     <h3>
-        ComponentA --- {{ countStore2.count }} ---{{ countStore2.double }}
+        ComponentA --- {{ countStore2.count }} ---{{ countStore2.double }} ---{{
+            countStore2.name
+        }}
         <button @click="countStore2.changeCount">Click Me</button>
     </h3>
 </template>
