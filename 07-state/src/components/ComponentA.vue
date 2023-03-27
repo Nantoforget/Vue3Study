@@ -1,17 +1,21 @@
 <template>
     <h3>
-        ComponentA --- {{ countStore.count }} ---
-        <button @click="countStore.changeCount">Click Me</button>
+        ComponentA --- {{ countStore2.count }} ---{{ countStore2.double }}
+        <button @click="countStore2.changeCount">Click Me</button>
     </h3>
 </template>
 
 <script setup>
     import { ref, inject } from "vue";
     import { countStore } from "@/store/count";
+    //引入store钩子
+    import { useCountStore } from "@/store/countStore";
+    //获取store实例
+    const countStore2 = useCountStore();
     //依赖注入
     //注入数据
     // const { count, changeCount } = inject("count");
-    /* 
+    /*
         状态管理
             -状态(state)
                 -应用当中的数据就是状态
