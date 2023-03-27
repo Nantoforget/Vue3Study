@@ -11,25 +11,15 @@
                 <th>操作</th>
             </tr>
         </thead>
-        <tbody>
-            <tr v-for="(stu, index) in students" :key="stu.id">
-                <td>{{ stu.id }}</td>
-                <td>{{ stu.name }}</td>
-                <td>{{ stu.age }}</td>
-                <td>{{ stu.gender }}</td>
-                <td>{{ stu.address }}</td>
-                <!-- <td><a @click.prevent="deleteDate(index)" href="#">删除</a></td> -->
-                <!-- 在模板中可以通过$emit()来触发自定义事件 -->
-                <td>
-                    <!-- <a @click.prevent="emits('delStu', index)" href="#">删除</a> -->
-                    <a @click.prevent="deleteDate(index)" href="#">删除</a>
-                </td>
-            </tr>
-        </tbody>
+        <StudentItem></StudentItem>
     </table>
 </template>
 
 <script setup>
+    import { inject } from "vue";
+    import StudentItem from "./StudentItem.vue";
+    const name = inject("name", "默认值");
+    console.log(name);
     // 通过defineProps定义的属性在$attrs中就不存在了
     //定义props属性，接受父组件传递的数据
     const props = defineProps(["stu", "fn"]);
@@ -61,13 +51,8 @@
         font-weight: bold;
     }
 
-    th,
-    td {
+    th {
         border: 2px solid red;
         text-align: center;
-    }
-
-    a {
-        text-decoration: none;
     }
 </style>

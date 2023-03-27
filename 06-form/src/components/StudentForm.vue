@@ -31,9 +31,11 @@
 </template>
 
 <script setup>
-    import { reactive } from "vue";
+    import { reactive, inject } from "vue";
     //props接受
     // const props = defineProps(["newStu"]);
+    //注入数据
+    const { addStudent } = inject("student");
     //自定义事件
     const emits = defineEmits(["addStu"]);
     //保存新添加的学生信息
@@ -45,9 +47,9 @@
     });
     //点击添加的回调
     const addNewStu = () => {
-        // console.log(newStu);
         // emits("addStu", Object.assign({}, newStu)); //浅复制
-        emits("addStu", { ...newStu }); //解构传值
+        // emits("addStu", { ...newStu }); //解构传值
+        addStudent({ ...newStu });
         newStu.name = "";
         newStu.age = 18;
         newStu.gender = "男";

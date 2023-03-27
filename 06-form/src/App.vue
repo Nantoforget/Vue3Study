@@ -12,9 +12,17 @@
 </template>
 
 <script setup>
-    import { ref, reactive } from "vue";
+    import { ref, reactive, provide } from "vue";
     import StudentList from "./components/StudentList.vue";
     import StudentForm from "./components/StudentForm.vue";
+    /* 
+        依赖注入
+            -通过依赖注入，可以跨越多层组件向其他的组件传递数据
+            -步骤：
+                1.设置依赖(provide) provide(name,value)
+                2.注入数据(inject) const value = inject(name,value)
+     */
+    provide("name", "孙悟空");
     //学生信息数组
     const students = reactive([
         {
@@ -59,6 +67,11 @@
             students.splice(index, 1);
         }
     };
+    provide("student", {
+        students,
+        addStudent,
+        delStudentByIndex,
+    });
 </script>
 
 <style scoped></style>
