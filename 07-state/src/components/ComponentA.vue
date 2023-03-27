@@ -1,15 +1,16 @@
 <template>
     <h3>
-        ComponentA --- {{ count }} ---
-        <button @click="changeCount">Click Me</button>
+        ComponentA --- {{ countStore.count }} ---
+        <button @click="countStore.changeCount">Click Me</button>
     </h3>
 </template>
 
 <script setup>
     import { ref, inject } from "vue";
+    import { countStore } from "@/store/count";
     //依赖注入
     //注入数据
-    const { count, changeCount } = inject("count");
+    // const { count, changeCount } = inject("count");
     /* 
         状态管理
             -状态(state)

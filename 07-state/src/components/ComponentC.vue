@@ -3,8 +3,8 @@
         <ul>
             <li>
                 ComponentC ---
-                {{ count }} ---
-                <button @click="changeCount">Click Me</button>
+                {{ countStore.count }} ---
+                <button @click="countStore.changeCount">Click Me</button>
             </li>
         </ul>
     </h4>
@@ -12,9 +12,10 @@
 
 <script setup>
     import { ref, inject } from "vue";
+    import { countStore } from "@/store/count";
     //依赖注入
     //注入数据
-    const { count, changeCount } = inject("count");
+    // const { count, changeCount } = inject("count");
 </script>
 
 <style scoped></style>
