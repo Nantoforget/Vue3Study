@@ -7,11 +7,15 @@
         :stu="students"
         :fn="delStudentByIndex"
         @del-stu="delStudentByIndex"></StudentList>
+    <hr />
+    <StudentForm @add-stu="addStudent"></StudentForm>
 </template>
 
 <script setup>
     import { ref, reactive } from "vue";
     import StudentList from "./components/StudentList.vue";
+    import StudentForm from "./components/StudentForm.vue";
+    //学生信息数组
     const students = reactive([
         {
             id: 1,
@@ -42,7 +46,14 @@
             address: "女儿国",
         },
     ]);
-    //添加一个删除学生的方法
+
+    //添加学生的方法
+    const addStudent = (newStu) => {
+        console.log(newStu);
+        newStu.id = students.at(-1) ? students.at(-1).id + 1 : 1;
+        students.push(newStu);
+    };
+    //删除学生的方法
     const delStudentByIndex = (index) => {
         if (confirm("请确认删除")) {
             students.splice(index, 1);
