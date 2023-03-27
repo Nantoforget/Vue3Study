@@ -8,8 +8,8 @@
             </li>
             <!-- 非响应式的 ,使用storeToRefs来解构的属性是响应式的-->
             <li> ComponentD--{{ name }} -- {{ age }} -- {{ title }}</li>
-            <li> ComponentD--{{ name1 }} -- {{ age1 }}</li>
-            <button @click="abc">Click Me</button>
+            <button @click="name = '孙大圣'">Click Me</button>
+            <button @click="abc">Patch修改</button>
         </ul>
     </h3>
 </template>
@@ -20,6 +20,7 @@
     import { storeToRefs } from "pinia";
     import { reactive } from "vue";
     //创建实例
+    const stuStore = useStudentStore();
     const { students, changeAge } = useStudentStore();
     /*
         store实力本身就是一个reactive对象，
@@ -29,9 +30,26 @@
         计算属性也有这样的问题(computed)
         storeToRefs只能解构state(ref)和getters(computed)使其变成响应式的，action(function())不能
      */
+    /* 
+        state的修改:
+            1.直接修改
+            2.通过$patch传对象的方式
+            3.通过$patch传函数的方式
+            4.stuStore.$reset()重置，将数据恢复原始状态
+     */
     const { name, age, gender, address, title } = storeToRefs(
         useStudentStore()
     );
+    const abc = () => {
+        /* stuStore.$patch({
+            name: "哈哈哈",
+            age: 789,
+        }); */
+        //上面的等价于
+        stuStore.$state = { name: "哈哈哈", age: 789 };
+        //函数的方式
+        // stuStore.$patch((state) => {});
+    };
 </script>
 
 <style scoped></style>

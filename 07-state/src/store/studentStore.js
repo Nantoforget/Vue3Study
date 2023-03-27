@@ -18,7 +18,7 @@ export const useStudentStore = defineStore("studentStore", () => {
         age.value++;
     };
     const title = computed(() => {
-        return "Mr." + students.name;
+        return "Mr." + name.value;
     });
     return {
         students,
