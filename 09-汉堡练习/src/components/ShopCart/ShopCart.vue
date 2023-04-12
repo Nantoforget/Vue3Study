@@ -2,17 +2,20 @@
     <div class="cart-bar">
         <div class="cart-bag">
             <img src="@/assets/longzhu.png" alt="" srcset="" />
-            <span class="goodNum">1</span>
+            <span v-if="meals.foodsNum > 0" class="goodNum">{{ meals.foodsNum }} </span>
         </div>
         <div class="total-amount">
-            <!-- <p class="no-goods">未选购商品</p> -->
-            <p class="has-goods">20</p>
+            <p v-if="meals.foodsNum == 0" class="no-goods">未选购商品</p>
+            <p v-else class="has-goods">{{ meals.foodsPrice }}</p>
         </div>
         <button class="checkout">去结算</button>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+    import { useMealsStore } from "@/store/meals";
+    const meals = useMealsStore();
+</script>
 
 <style scoped>
     .cart-bar {
@@ -48,7 +51,7 @@
     .total-amount {
         margin-left: 160rem;
     }
-    /*.no-goods,*/
+    .no-goods,
     .has-goods {
         line-height: 100rem;
         color: rgb(148, 148, 148);

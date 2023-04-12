@@ -11,7 +11,7 @@
             </div>
             <div class="num">
                 <div class="price">{{ meal.price }}</div>
-                <AddOrMinus></AddOrMinus>
+                <AddOrMinus @goodsMinusNum="goodsMinusNum" @goodsAddNum="goodsAddNum"></AddOrMinus>
             </div>
         </div>
     </div>
@@ -20,8 +20,17 @@
 <script setup>
     import AddOrMinus from "@/components/UI/AddOrMinus.vue";
     import { defineProps } from "vue";
+    import {useMealsStore} from "@/store/meals";
+    const meals = useMealsStore()
     const props = defineProps(["meal"]);
     const meal = props.meal;
+    //商品数量的自定义函数
+    const goodsAddNum=(count)=>{
+        meals.addGoods(meal,count);
+    }
+    const goodsMinusNum = (count)=>{
+        meals.minusGoods(meal,count)
+    }
 </script>
 
 <style scoped>

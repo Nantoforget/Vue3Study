@@ -52,15 +52,60 @@ export const useMealsStore = defineStore("mealsStore", () => {
             img: "/images/meals/7.png",
         },
     ]);
+    // 搜索的关键字
     let keyword = ref("");
+    //搜索出来的数组
     const filterMeals = computed(() => {
         return data.filter((item) => {
             return item.title.includes(keyword.value);
         });
     });
+    //保存添加的商品
+    const goodsArr = reactive([]);
+    //保存的方法
+    const addGoods = (good, count) => {
+        if (goodsArr.length != 0) {
+            let a = goodsArr.findIndex((ele) => {
+                return ele.id == good.id;
+            });
+            if (a != -1) {
+                goodsArr[a].num++;
+            } else {
+                good.num = count;
+                goodsArr.push(good);
+            }
+        } else {
+            good.num = count;
+            goodsArr.push(good);
+        }
+    };
+    //数量减少的方法
+    const minusGoods = (good) => {
+        let a = goodsArr.findIndex((ele) => {
+            return ele.id == good.id;
+        });
+        goodsArr[a].num--;
+    };
+    //食物的总数量
+    const foodsNum = computed(() => {
+        return goodsArr.reduce((prev, next) => {
+            return prev + next.num;
+        }, 0);
+    });
+    //食物的总价格
+    const foodsPrice = computed(() => {
+        return goodsArr.reduce((prev, next) => {
+            return prev + next.price * next.num;
+        }, 0);
+    });
     return {
         data,
         keyword,
         filterMeals,
+        foodsNum,
+        goodsArr,
+        addGoods,
+        foodsPrice,
+        minusGoods,
     };
 });

@@ -1,18 +1,29 @@
 <template>
     <div class="counter">
         <template v-if="count > 0">
-            <button class="minus" @click="count--"><i class="ri-subtract-line"></i></button>
+            <button class="minus" @click="minusCount">
+                <i class="ri-subtract-line"></i>
+            </button>
             <span class="goodNum">{{ count }}</span>
         </template>
-        <button class="add" @click="addCount"><i class="ri-add-fill"></i></button>
+        <button class="add" @click="addCount">
+            <i class="ri-add-fill"></i>
+        </button>
     </div>
 </template>
 
 <script setup>
+    import { defineEmits } from "vue";
+    const emits = defineEmits();
     import { ref } from "vue";
     let count = ref(0);
     const addCount = () => {
         count.value++;
+        emits("goodsAddNum", count.value);
+    };
+    const minusCount = () => {
+        count.value--;
+        emits("goodsMinusNum");
     };
 </script>
 

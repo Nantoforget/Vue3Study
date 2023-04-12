@@ -1,6 +1,6 @@
 <template>
     <div class="filter">
-        <input v-model="meals.keyword" class="filter-input" placeholder="请输入关键字" type="text"  />
+        <input v-model="meals.keyword" class="filter-input" placeholder="请输入关键字" type="text" />
         <i class="ri-search-2-line"></i>
     </div>
 </template>
