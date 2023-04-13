@@ -2,7 +2,7 @@
     <!-- 汉堡的信息 -->
     <div class="meal">
         <div class="img">
-            <img :src="meal.img" />
+            <img :src="meal.img" alt="" />
         </div>
         <div class="info">
             <div class="desc">
@@ -10,8 +10,9 @@
                 <p v-if="desc" class="desc">{{ meal.desc }}</p>
             </div>
             <div class="num">
-                <div class="price">{{ meal.price }}</div>
+                <div v-if="price" class="price">{{ meal.price }}</div>
                 <AddOrMinus :meal="props.meal"></AddOrMinus>
+                <div v-if="all" class="all">{{ meal.price * meal.num }}</div>
             </div>
         </div>
     </div>
@@ -20,7 +21,7 @@
 <script setup>
     import AddOrMinus from "@/components/UI/AddOrMinus.vue";
     import { defineProps } from "vue";
-    const props = defineProps(["meal", "desc"]);
+    const props = defineProps(["meal", "desc", "all", "price"]);
     const meal = props.meal || {};
 </script>
 
@@ -52,10 +53,13 @@
     .price {
         font-size: 30rem;
         font-weight: bold;
-        /*flex: 1;*/
         margin-right: 190rem;
     }
     .price::before {
         content: "￥";
+    }
+    .all {
+        font-size: 30rem;
+        margin-left: 150rem;
     }
 </style>

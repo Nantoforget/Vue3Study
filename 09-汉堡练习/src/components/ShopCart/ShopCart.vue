@@ -1,22 +1,26 @@
 <template>
     <div class="cart-bar">
-        <div class="cart-bag">
+        <div class="cart-bag" v-if="!buyShow">
             <img src="@/assets/longzhu.png" alt="" srcset="" />
             <span v-if="meals.foodsNum > 0" class="goodNum">{{ meals.foodsNum }} </span>
         </div>
+        <div class="total" v-else><span>合计:</span></div>
         <div class="total-amount" @click="showGoodsDetail()">
             <p v-if="meals.foodsNum == 0" class="no-goods">未选购商品</p>
             <p v-else class="has-goods">{{ meals.foodsPrice }}</p>
         </div>
-        <button class="checkout">去结算</button>
+        <button v-if="!buyShow" class="checkout" @click="closeAccount">去结算</button>
+        <button v-else class="checkout">去支付</button>
     </div>
     <GoodsDetail @noMask="noMask" :isShow="showGoods"></GoodsDetail>
+    <Buy @close="close" v-if="buyShow"></Buy>
 </template>
 
 <script setup>
     import { useMealsStore } from "@/store/meals";
     import { ref, watch } from "vue";
     import GoodsDetail from "@/components/Cart/GoodsDetail.vue";
+    import Buy from "@/components/ShopCart/Buy.vue";
     const meals = useMealsStore();
     let showGoods = ref(false);
     const showGoodsDetail = () => {
@@ -34,6 +38,13 @@
             }
         }
     );
+    let buyShow = ref(false);
+    const closeAccount = () => {
+        buyShow.value = true;
+    };
+    const close = () => {
+        buyShow.value = false;
+    };
 </script>
 
 <style scoped>
@@ -68,8 +79,20 @@
         text-align: center;
         line-height: 52rem;
     }
+    .total {
+        position: absolute;
+        width: 100rem;
+        height: 50rem;
+        left: 70rem;
+        top: 23rem;
+        color: #fff;
+        font-size: 36rem;
+        font-weight: bold;
+        text-align: center;
+        line-height: 52rem;
+    }
     .total-amount {
-        margin-left: 160rem;
+        margin-left: 180rem;
     }
     .no-goods,
     .has-goods {

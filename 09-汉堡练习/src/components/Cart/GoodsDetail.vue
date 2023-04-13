@@ -2,7 +2,7 @@
     <Mask>
         <div class="goods">
             <DescAndDelete></DescAndDelete>
-            <Meals :decs="false" :meals="meals.carArr"></Meals>
+            <Meals :all="false" :price="true" :decs="false" :meals="meals.carArr"></Meals>
         </div>
     </Mask>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <MealsFilter></MealsFilter>
-    <Meals :desc="true" :meals="meals.filterMeals"></Meals>
+    <Meals :all="false" :price="true" :desc="true" :meals="meals.filterMeals"></Meals>
     <ShopCart></ShopCart>
 </template>
 
