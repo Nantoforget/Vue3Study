@@ -15,7 +15,7 @@
 
 <script setup>
     import { useMealsStore } from "@/store/meals";
-    import { provide, ref, watch } from "vue";
+    import { ref, watch } from "vue";
     import GoodsDetail from "@/components/Cart/GoodsDetail.vue";
     const meals = useMealsStore();
     let showGoods = ref(false);
