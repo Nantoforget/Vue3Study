@@ -1,30 +1,22 @@
 <template>
     <div class="counter">
-        <template v-if="count > 0">
-            <button class="minus" @click="minusCount">
+        <template v-if="meal.num > 0">
+            <button class="minus" @click="meals.minusGoods(props.meal)">
                 <i class="ri-subtract-line"></i>
             </button>
-            <span class="goodNum">{{ count }}</span>
+            <span class="goodNum">{{ meal.num }}</span>
         </template>
-        <button class="add" @click="addCount">
+        <button class="add" @click="meals.addGoods(props.meal)">
             <i class="ri-add-fill"></i>
         </button>
     </div>
 </template>
 
 <script setup>
-    import { defineEmits } from "vue";
-    const emits = defineEmits();
-    import { ref } from "vue";
-    let count = ref(0);
-    const addCount = () => {
-        count.value++;
-        emits("goodsAddNum", count.value);
-    };
-    const minusCount = () => {
-        count.value--;
-        emits("goodsMinusNum");
-    };
+    import { useMealsStore } from "@/store/meals";
+    const meals = useMealsStore();
+    const props = defineProps(["meal"]);
+    const meal = props.meal || {};
 </script>
 
 <style scoped>

@@ -60,52 +60,58 @@ export const useMealsStore = defineStore("mealsStore", () => {
             return item.title.includes(keyword.value);
         });
     });
-    //保存添加的商品
-    const goodsArr = reactive([]);
+    //购物车商品
+    const carArr = computed(() => {
+        return data.filter((ele) => {
+            return ele.num > 0;
+        });
+    });
     //保存的方法
-    const addGoods = (good, count) => {
-        if (goodsArr.length != 0) {
-            let a = goodsArr.findIndex((ele) => {
-                return ele.id == good.id;
-            });
-            if (a != -1) {
-                goodsArr[a].num++;
-            } else {
-                good.num = count;
-                goodsArr.push(good);
-            }
-        } else {
-            good.num = count;
-            goodsArr.push(good);
+    const addGoods = (good) => {
+        if (isNaN(good.num)) {
+            good.num = 0;
         }
+        good.num++;
     };
     //数量减少的方法
     const minusGoods = (good) => {
-        let a = goodsArr.findIndex((ele) => {
-            return ele.id == good.id;
-        });
-        goodsArr[a].num--;
+        if (isNaN(good.num)) return;
+        good.num--;
     };
     //食物的总数量
     const foodsNum = computed(() => {
-        return goodsArr.reduce((prev, next) => {
+        return data.reduce((prev, next) => {
+            if (isNaN(next.num)) {
+                next.num = 0;
+            }
             return prev + next.num;
         }, 0);
     });
     //食物的总价格
     const foodsPrice = computed(() => {
-        return goodsArr.reduce((prev, next) => {
-            return prev + next.price * next.num;
+        return data.reduce((prev, next) => {
+            if (isNaN(next.num)) {
+                next.num = 0;
+            }
+            return prev + next.num * next.price;
         }, 0);
     });
+    //清空购物车
+    const clear = () => {
+        data.forEach((ele) => {
+            ele.num = 0;
+        });
+    };
+    //返回的值，只有return组件才能使用
     return {
         data,
         keyword,
         filterMeals,
         foodsNum,
-        goodsArr,
         addGoods,
         foodsPrice,
         minusGoods,
+        carArr,
+        clear,
     };
 });

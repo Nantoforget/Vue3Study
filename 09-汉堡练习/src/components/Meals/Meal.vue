@@ -2,16 +2,16 @@
     <!-- 汉堡的信息 -->
     <div class="meal">
         <div class="img">
-            <img :src="meal.img" :alt="meal.title" srcset="" />
+            <img :src="meal.img" />
         </div>
         <div class="info">
             <div class="desc">
                 <h2 class="title">{{ meal.title }}</h2>
-                <p class="desc">{{ meal.desc }}</p>
+                <p v-if="desc" class="desc">{{ meal.desc }}</p>
             </div>
             <div class="num">
                 <div class="price">{{ meal.price }}</div>
-                <AddOrMinus @goodsMinusNum="goodsMinusNum" @goodsAddNum="goodsAddNum"></AddOrMinus>
+                <AddOrMinus :meal="props.meal"></AddOrMinus>
             </div>
         </div>
     </div>
@@ -20,17 +20,8 @@
 <script setup>
     import AddOrMinus from "@/components/UI/AddOrMinus.vue";
     import { defineProps } from "vue";
-    import {useMealsStore} from "@/store/meals";
-    const meals = useMealsStore()
-    const props = defineProps(["meal"]);
-    const meal = props.meal;
-    //商品数量的自定义函数
-    const goodsAddNum=(count)=>{
-        meals.addGoods(meal,count);
-    }
-    const goodsMinusNum = (count)=>{
-        meals.minusGoods(meal,count)
-    }
+    const props = defineProps(["meal", "desc"]);
+    const meal = props.meal || {};
 </script>
 
 <style scoped>
@@ -56,11 +47,13 @@
         display: flex;
         margin-top: 40rem;
         margin-right: 40rem;
+        justify-content: space-between;
     }
     .price {
         font-size: 30rem;
         font-weight: bold;
-        flex: 1;
+        /*flex: 1;*/
+        margin-right: 190rem;
     }
     .price::before {
         content: "￥";

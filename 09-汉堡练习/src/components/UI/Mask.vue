@@ -1,8 +1,13 @@
 <template>
-    <div class="mask"></div>
+    <div class="mask" v-show="props.isShow" @click.self="emits('noMask')">
+        <slot></slot>
+    </div>
 </template>
 
-<script setup></script>
+<script setup>
+    const props = defineProps(["isShow"]);
+    const emits = defineEmits(["noMask"]);
+</script>
 
 <style scoped>
     .mask {
@@ -12,6 +17,5 @@
         left: 0;
         right: 0;
         background-color: rgba(0, 0, 0, 0.3);
-        z-index: 999;
     }
 </style>

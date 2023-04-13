@@ -4,17 +4,36 @@
             <img src="@/assets/longzhu.png" alt="" srcset="" />
             <span v-if="meals.foodsNum > 0" class="goodNum">{{ meals.foodsNum }} </span>
         </div>
-        <div class="total-amount">
+        <div class="total-amount" @click="showGoodsDetail()">
             <p v-if="meals.foodsNum == 0" class="no-goods">未选购商品</p>
             <p v-else class="has-goods">{{ meals.foodsPrice }}</p>
         </div>
         <button class="checkout">去结算</button>
     </div>
+    <GoodsDetail @noMask="noMask" :isShow="showGoods"></GoodsDetail>
 </template>
 
 <script setup>
     import { useMealsStore } from "@/store/meals";
+    import { provide, ref, watch } from "vue";
+    import GoodsDetail from "@/components/Cart/GoodsDetail.vue";
     const meals = useMealsStore();
+    let showGoods = ref(false);
+    const showGoodsDetail = () => {
+        if (meals.foodsNum == 0) return;
+        showGoods.value = !showGoods.value;
+    };
+    const noMask = () => {
+        showGoods.value = false;
+    };
+    watch(
+        () => meals.foodsNum,
+        () => {
+            if (meals.foodsNum == 0) {
+                showGoods.value = false;
+            }
+        }
+    );
 </script>
 
 <style scoped>
@@ -28,6 +47,7 @@
         right: 0;
         margin: 0 auto;
         border-radius: 60rem;
+        z-index: 99;
     }
     .cart-bag img {
         width: 100rem;
